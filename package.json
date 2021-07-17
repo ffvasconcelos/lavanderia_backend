@@ -1,0 +1,19 @@
+{
+  "name": "lavanderia_backend",
+  "version": "1.0.0",
+  "description": "Servidor para a aplicação La Vanderia, criada para a disciplina Banco de Dados I.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
