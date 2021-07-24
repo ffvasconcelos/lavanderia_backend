@@ -10,28 +10,43 @@ const pool = new Pool({
 });
 
 const getAllUsuarios = async (req, res) => {
-	const response = await pool.query("SELECT * FROM USUARIO");
-	res.status(200).json(response.rows);
-	console.log("All users sent concluded!");
+	try {
+		const response = await pool.query("SELECT * FROM USUARIO");
+		res.status(200).json(response.rows);
+		console.log("All users sent concluded!");
+	} catch (err) {
+		res.json(err)
+	}
 };
 
 const getUsuarioByCPF = async (req, res) => {
 	const cpf = req.params.cpf;
-	const response = await pool.query("SELECT * FROM USUARIO WHERE CPF = $1", [
-		cpf,
-	]);
 
-	res.json(response.rows);
+	try {
+		const response = await pool.query("SELECT * FROM USUARIO WHERE CPF = $1", [
+		cpf,
+		]);
+		console.log('Get usuario concluded!')
+		res.json(response.rows);
+	} catch (err) {
+		res.json(err)
+	}
+	
 };
 
 const getAllUsuariosByCNPJ_LAVANDERIA = async (req, res) => {
 	const cnpj = req.params.cnpj;
-	const response = await pool.query(
+
+	try {
+		const response = await pool.query(
 		"SELECT * FROM USUARIO WHERE CNPJ_LAVANDERIA = $1",
 		[cnpj]
-	);
-
-	res.json(response.rows);
+		);
+		console.log(`Get all usuarios by cnpj_lavanderia = ${cnpj} concluded!`)
+		res.json(response.rows);
+	} catch (err) {
+		res.json(err)
+	}
 };
 
 const createUsuario = async (req, res) => {
@@ -66,22 +81,33 @@ const createUsuario = async (req, res) => {
 
 const deleteUsuario = async (req, res) => {
 	cpf = req.params.cpf;
-	const response = await pool.query("DELETE FROM USUARIO WHERE CPF = $1", [
-		cpf,
-	]);
-	res.json(`Usuario de cpf ${cpf} deletado com sucesso.`);
+
+	try {
+		const response = await pool.query("DELETE FROM USUARIO WHERE CPF = $1", [
+			cpf,
+		]);
+		console.log('Delete usuario completed!');
+		res.json(`Usuario de cpf ${cpf} deletado com sucesso.`);
+	} catch (err) {
+		res.json(err)
+	}
+	
 };
 
 const updateUsuario = async (req, res) => {
-	const id = req.params.cpf;
+	const id = req.params.id;
 	const { nome, senha, telefone, cpf, cnpj_lavanderia } = req.body;
 
-	const response = await pool.query(
-		"UPDATE USUARIO U SET NOME = $1, SENHA = $2, TELEFONE = $3, CPF = $4, CNPJ_LAVANDERIA = $5 WHERE U.CPF = $6",
-		[nome, senha, telefone, cpf, cnpj_lavanderia, id]
-	);
-
-	res.json('Usuario atualizado com sucesso!')
+	try {
+		const response = await pool.query(
+			"UPDATE USUARIO SET NOME = $1, SENHA = $2, TELEFONE = $3, CPF = $4, CNPJ_LAVANDERIA = $5 WHERE CPF = $6",
+			[nome, senha, telefone, cpf, cnpj_lavanderia, id]
+		);
+		console.log("update Usuario success!");
+		res.json("Usuario atualizado com sucesso!");
+	} catch (err) {
+		res.json(err)
+	}
 };
 
 module.exports = {
