@@ -34,11 +34,31 @@ router.post("/cliente", insertCliente)
 const {
   getCustosByLavanderia,
   insertCustos,
-  updateCustos
+	updateCustos,
+	deleteCustos
 } = require("../controllers/custosController")
 
 router.get("/getcustos/:cnpj", getCustosByLavanderia)
 router.post("/custos", insertCustos)
 router.put("/custos/update", updateCustos)
+router.delete("/custos/delete", deleteCustos)
+
+const {
+	getAllPedidosByLavanderia,
+	getAllPedidosByCliente,
+	getAllPedidosByLavanderiaAndNotEntregue,
+	getPedido,
+	updatePedido,
+	deletePedido,
+	createPedido
+} = require("../controllers/pedidoController")
+
+router.get("/lavanderia/pedido/:cnpj", getAllPedidosByLavanderia)
+router.get("/cliente/pedido/:cpf", getAllPedidosByCliente)
+router.get("/lavanderia/pedido/pendente/:cnpj", getAllPedidosByLavanderiaAndNotEntregue)
+router.get("/pedido/id=:id", getPedido)
+router.put("/pedido/up=:id", updatePedido)
+router.delete("/pedido/del=:id", deletePedido)
+router.post("/pedido", createPedido)
 
 module.exports = router;
