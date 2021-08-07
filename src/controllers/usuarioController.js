@@ -104,7 +104,7 @@ const updateUsuario = async (req, res) => {
 			[nome, senha, telefone, cpf, cnpj_lavanderia, id]
 		);
 		console.log("update Usuario success!");
-		res.json("Usuario atualizado com sucesso!");
+		res.json(req.body);
 	} catch (err) {
 		res.json(err)
 	}

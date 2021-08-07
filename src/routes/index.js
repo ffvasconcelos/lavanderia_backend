@@ -41,7 +41,7 @@ const {
 router.get("/getcustos/:cnpj", getCustosByLavanderia)
 router.post("/custos", insertCustos)
 router.put("/custos/update", updateCustos)
-router.delete("/custos/delete", deleteCustos)
+router.delete("/custos/del=:cnpj", deleteCustos);
 
 const {
 	getAllPedidosByLavanderia,
