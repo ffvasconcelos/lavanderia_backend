@@ -25,22 +25,22 @@ const {
 	deleteCliente,
 } = require("../controllers/clienteController");
 
-router.get("/clientes/:id", getAllClientesByLavanderia)
-router.get("/cliente/:cpf", getClienteByCPF)
-router.put("/cliente/up=:id", updateCliente)
-router.delete("/cliente/del=:cpf", deleteCliente)
-router.post("/cliente", insertCliente)
+router.get("/clientes/:id", getAllClientesByLavanderia);
+router.get("/cliente/:cpf", getClienteByCPF);
+router.put("/cliente/up=:id", updateCliente);
+router.delete("/cliente/del=:cpf", deleteCliente);
+router.post("/cliente", insertCliente);
 
 const {
-  getCustosByLavanderia,
-  insertCustos,
+	getCustosByLavanderia,
+	insertCustos,
 	updateCustos,
-	deleteCustos
-} = require("../controllers/custosController")
+	deleteCustos,
+} = require("../controllers/custosController");
 
-router.get("/getcustos/:cnpj", getCustosByLavanderia)
-router.post("/custos", insertCustos)
-router.put("/custos/update", updateCustos)
+router.get("/getcustos/:cnpj", getCustosByLavanderia);
+router.post("/custos", insertCustos);
+router.put("/custos/update", updateCustos);
 router.delete("/custos/del=:cnpj", deleteCustos);
 
 const {
@@ -50,15 +50,18 @@ const {
 	getPedido,
 	updatePedido,
 	deletePedido,
-	createPedido
-} = require("../controllers/pedidoController")
+	createPedido,
+} = require("../controllers/pedidoController");
 
-router.get("/lavanderia/pedido/:cnpj", getAllPedidosByLavanderia)
-router.get("/cliente/pedido/:cpf", getAllPedidosByCliente)
-router.get("/lavanderia/pedido/pendente/:cnpj", getAllPedidosByLavanderiaAndNotEntregue)
-router.get("/pedido/id=:id", getPedido)
-router.put("/pedido/up=:id", updatePedido)
-router.delete("/pedido/del=:id", deletePedido)
-router.post("/pedido", createPedido)
+router.get("/lavanderia/pedido/:cnpj", getAllPedidosByLavanderia);
+router.get("/cliente/pedido/:cpf", getAllPedidosByCliente);
+router.get(
+	"/lavanderia/pedido/pendente/:cnpj",
+	getAllPedidosByLavanderiaAndNotEntregue
+);
+router.get("/pedido/id=:id", getPedido);
+router.put("/pedido/up=:id", updatePedido);
+router.delete("/pedido/del=:id", deletePedido);
+router.post("/pedido", createPedido);
 
 module.exports = router;
