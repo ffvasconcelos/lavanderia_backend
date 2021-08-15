@@ -1,4 +1,4 @@
-const { response, query } = require("express");
+const { response } = require("express");
 const { Pool } = require("pg");
 
 const pool = new Pool({
@@ -25,18 +25,18 @@ const getCustosByLavanderia = async (req, res) => {
 };
 
 const insertCustos = async (req, res) => {
-	const { despesa, custo_mao, custo_maquina, custo_seco, lucro_esperado, cnpj_lavanderia } = req.body;
+	const request = req.body;
 
 	try {
 		const response = await pool.query(
 			"INSERT INTO CUSTOS (DESPESA, CUSTO_MAO, CUSTO_MAQUINA, CUSTO_SECO, LUCRO_ESPERADO, CNPJ_LAVANDERIA) VALUES ($1, $2, $3, $4, $5, $6)",
 			[
-				despesa,
-				custo_mao,
-				custo_maquina,
-				custo_seco,
-				lucro_esperado,
-				cnpj_lavanderia,
+				request.despesa,
+				request.custo_mao,
+				request.custo_maquina,
+				request.custo_seco,
+				request.lucro_esperado,
+				request.cnpj_lavanderia,
 			]
 		);
 		console.log("Insert custos success!");
@@ -47,25 +47,18 @@ const insertCustos = async (req, res) => {
 };
 
 const updateCustos = async (req, res) => {
-	const {
-		despesa,
-		custo_mao,
-		custo_maquina,
-		custo_seco,
-		lucro_esperado,
-		cnpj_lavanderia,
-	} = req.body;
+	const request = req.body;
 
 	try {
 		const response = await pool.query(
 			"UPDATE CUSTOS SET DESPESA = $1, CUSTO_MAO = $2, CUSTO_MAQUINA = $3, CUSTO_SECO = $4, LUCRO_ESPERADO = $5 WHERE CNPJ_LAVANDERIA = $6",
 			[
-				despesa,
-				custo_mao,
-				custo_maquina,
-				custo_seco,
-				lucro_esperado,
-				cnpj_lavanderia,
+				request.despesa,
+				request.custo_mao,
+				request.custo_maquina,
+				request.custo_seco,
+				request.lucro_esperado,
+				request.cnpj_lavanderia,
 			]
 		);
 		console.log("Update custos success!");

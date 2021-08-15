@@ -56,12 +56,12 @@ const updateCliente = async (req, res) => {
 };
 
 const insertCliente = async (req, res) => {
-	const { nome, cpf, telefone, email, cnpj_lavanderia } = req.body;
+	const request = req.body;
 
 	try {
 		const response = await pool.query(
 			"INSERT INTO CLIENTE(NOME, TELEFONE, EMAIL, CPF, CNPJ_LAVANDERIA) VALUES ($1, $2, $3, $4, $5)",
-			[nome, telefone, email, cpf, cnpj_lavanderia]
+			[request.nome, request.telefone, request.email, request.cpf, request.cnpj_lavanderia]
 		);
     console.log('Insert cliente success!')
 		res.json("CLIENTE ADICIONADO!");

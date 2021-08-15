@@ -50,24 +50,18 @@ const getAllUsuariosByCNPJ_LAVANDERIA = async (req, res) => {
 };
 
 const createUsuario = async (req, res) => {
-	const { nome, senha, telefone, cpf, cnpj_lavanderia } = req.body;
+	const request = req.body;
 
 	try {
 		await pool.query(
 			"INSERT INTO USUARIO(NOME, SENHA, TELEFONE, CPF, CNPJ_LAVANDERIA) VALUES($1, $2, $3, $4, $5)",
-			[nome, senha, telefone, cpf, cnpj_lavanderia]
+			[request.nome, request.senha, request.telefone, request.cpf, request.cnpj_lavanderia]
 		);
 		console.log(response);
 		res.json({
 			message: "Usuario criado com sucesso",
 			body: {
-				usuario: {
-					nome,
-					senha,
-					telefone,
-					cpf,
-					cnpj_lavanderia,
-				},
+				...request
 			},
 		});
 	} catch (err) {
@@ -96,12 +90,12 @@ const deleteUsuario = async (req, res) => {
 
 const updateUsuario = async (req, res) => {
 	const id = req.params.id;
-	const { nome, senha, telefone, cpf, cnpj_lavanderia } = req.body;
+	const request = req.body;
 
 	try {
 		const response = await pool.query(
 			"UPDATE USUARIO SET NOME = $1, SENHA = $2, TELEFONE = $3, CPF = $4, CNPJ_LAVANDERIA = $5 WHERE CPF = $6",
-			[nome, senha, telefone, cpf, cnpj_lavanderia, id]
+			[request.nome, request.senha, request.telefone, request.cpf, request.cnpj_lavanderia, id]
 		);
 		console.log("update Usuario success!");
 		res.json(req.body);

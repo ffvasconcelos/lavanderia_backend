@@ -1,4 +1,4 @@
-const { response, json } = require("express");
+const { response } = require("express");
 const { Pool } = require("pg");
 
 const pool = new Pool({
@@ -75,13 +75,13 @@ const getPedido = async (req, res) => {
 }
 
 const updatePedido = async (req, res) => {
-  const {peso, tipo, status, preco, cpf_cliente} = req.body
+  const request = req.body
   const id = req.params.id
 
   try {
     const response = await pool.query(
       "UPDATE PEDIDO SET PESO = $1, TIPO = $2, STATUS = $3, PRECO = $4, CPF_CLIENTE = $5 WHERE ID_PEDIDO = $6",
-      [peso, tipo, status, preco, cpf_cliente, id]
+      [request.peso, request.tipo, request.status, request.preco, request.cpf_cliente, id]
     )
 
     console.log('Update pedido success!')
@@ -108,12 +108,13 @@ const deletePedido = async (req, res) => {
 }
 
 const createPedido = async (req, res) => {
-  const { peso, tipo, status, preco, cpf_cliente } = req.body
+
+  const request = req.body
   
   try {
     const response = await pool.query(
       "INSERT INTO PEDIDO (PESO, TIPO, STATUS, PRECO, CPF_CLIENTE) VALUES ($1, $2, $3, $4, $5)",
-      [peso, tipo, status, preco, cpf_cliente]
+      [request.peso, request.tipo, request.status, request.preco, request.cpf_cliente]
     )
     console.log('Insert pedido success!')
     res.json('Pedido adicionado!')
